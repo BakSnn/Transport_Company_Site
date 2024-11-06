@@ -4,18 +4,9 @@ import cors from "cors";
 
 const app = express();
 const prisma = new PrismaClient();
-const port = process.env.PORT || 5556;
+const port = process.env.PORT || 5000;
 
-// Разрешаем запросы с вашего локального фронтенда
-const corsOptions = {
-  origin: "http://localhost:5173", // URL вашего фронтенда
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-// Используем CORS с указанными параметрами
-app.use(cors(corsOptions));
-
+app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
 // Получение всех пользователей
