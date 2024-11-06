@@ -4,7 +4,7 @@ import cors from "cors";
 
 const app = express();
 const prisma = new PrismaClient();
-const port = process.env.PORT || 5555;
+const port = process.env.PORT || 5556;
 
 // Разрешаем запросы с вашего локального фронтенда
 const corsOptions = {
