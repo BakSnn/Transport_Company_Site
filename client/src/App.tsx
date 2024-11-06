@@ -12,7 +12,7 @@ const App: React.FC = () => {
   // Функция для получения пользователей
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://150.241.65.37:5555/api/users");
+      const response = await fetch("http://150.241.65.37:5001/api/users");
       if (!response.ok) {
         throw new Error("Ошибка при получении пользователей");
       }
@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   const fetchLists = async () => {
     try {
-      const response = await fetch("http://150.241.65.37:5555/api/list");
+      const response = await fetch("http://150.241.65.37:5001/api/list");
       if (!response.ok) {
         throw new Error("Ошибка при получении списка постов");
       }
