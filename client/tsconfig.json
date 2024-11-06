@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+    "compilerOptions": {
+      "target": "es6",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true
+    },
+    "include": ["server/**/*.ts", "models/**/*.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+}
