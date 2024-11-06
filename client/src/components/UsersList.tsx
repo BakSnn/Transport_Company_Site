@@ -19,9 +19,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
   async function deleteUserById(id: number): Promise<void> {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://150.241.65.37:5001/api/users/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (response.ok) {
         // Успешное удаление — обновляем список пользователей
         setNewUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));

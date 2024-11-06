@@ -26,7 +26,7 @@ const AddUser: React.FC<AddUserProps> = ({ onUserAdded }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/users", {
+      const response = await fetch("http://150.241.65.37:5001/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
