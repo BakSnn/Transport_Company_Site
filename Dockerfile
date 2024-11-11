@@ -1,5 +1,3 @@
-# Используем multi-stage build для client и server
-
 # Сборка клиентской части
 FROM node:18 AS client-build
 WORKDIR /app/client
