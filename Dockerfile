@@ -7,7 +7,8 @@ WORKDIR /app
 # Скопируйте только package.json и package-lock.json для установки зависимостей
 COPY server/package.json ./ 
 COPY server/package-lock.json ./   
-COPY .env .env
+COPY server/.env .env
+
 # Скопируйте папку prisma (где хранится schema.prisma)
 COPY server/prisma ./prisma
 
