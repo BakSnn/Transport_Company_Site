@@ -10,6 +10,7 @@ COPY server/package-lock.json ./
 
 # Установите зависимости
 RUN npm install
+RUN npx prisma generate
 
 # Скопируйте всю папку server в контейнер
 COPY server ./server
