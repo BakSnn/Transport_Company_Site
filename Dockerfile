@@ -14,9 +14,6 @@ RUN npm install
 COPY server .
 COPY --from=client-build /app/client/dist ./client-dist
 
-# Копируем Prisma файлы и создаем миграции
-COPY prisma ./prisma
-RUN npx prisma generate
 
 # Устанавливаем рабочую директорию и порты
 EXPOSE 3000
