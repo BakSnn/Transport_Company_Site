@@ -4,8 +4,6 @@ FROM node:18
 # Установите рабочую директорию в контейнере
 WORKDIR /app
 
-# Скопируйте только package.json и package-lock.json для установки зависимостей
-COPY server/package.json ./   # Копируем только package.json
 
 # Установите зависимости
 RUN npm install
