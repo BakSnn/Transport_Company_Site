@@ -1,22 +1,23 @@
-# Сборка клиентской части
-FROM node:18 AS client-build
-WORKDIR /app/client
-COPY client/package*.json ./
+# Укажите базовый образ
+FROM node:18
+
+# Установите рабочую директорию
+WORKDIR /app
+
+# Скопируйте package.json и package-lock.json для установки зависимостей
+COPY Cursovaya_App/server/package*.json ./
+
+# Установите зависимости
 RUN npm install
-COPY client .
-RUN npm run build
 
-# Сборка серверной части
-FROM node:18 AS server-build
-WORKDIR /app/server
-COPY server/package*.json ./
-RUN npm install
-COPY server .
-COPY --from=client-build /app/client/dist ./client-dist
+# Скопируйте весь проект в контейнер
+COPY Cursovaya_App/server .
 
+# Установите nodemon глобально (если требуется)
+RUN npm install -g nodemon
 
-# Устанавливаем рабочую директорию и порты
-EXPOSE 3000
+# Откройте порт, который используется приложением (замените 5001 на нужный вам порт)
+EXPOSE 5001
 
-# Запускаем сервер
-CMD ["npx", "nodemon"]
+# Команда для запуска приложения
+CMD ["npx", "nodemon", "script.ts"]
