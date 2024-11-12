@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header/Header";
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  published: boolean;
+  authorId: number;
+}
 interface User {
   id: number; // Предположим, у вас есть поле id
   name: string;
   email: string;
+  posts: Post[];
 }
 
 interface UserListProps {
@@ -45,6 +54,15 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           <li key={user.id}>
             {user.name} - {user.email}
             <button onClick={() => deleteUserById(user.id)}>x</button>
+            <h3>Посты</h3>
+            <ol>
+              {user.posts.map((post) => (
+                <li key={post.id}>
+                  <h4>{post.title}</h4>
+                  <h5>{post.content}</h5>
+                </li>
+              ))}
+            </ol>
           </li>
         ))}
       </ol>
