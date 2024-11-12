@@ -10,10 +10,10 @@ COPY server/package-lock.json ./
 COPY server/.env .env
 
 # Скопируйте папку prisma (где хранится schema.prisma)
-COPY server/prisma ./prisma
+# COPY server/prisma ./prisma
 
 # Генерируйте Prisma Client
-RUN npx prisma generate
+# RUN npx prisma generate
 # Установите зависимости
 RUN npm install
 
