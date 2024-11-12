@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: tk_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+    environment:
+      DATABASE_URL: "postgresql://myuser:admin@database:5432/mydatabase"
+    ports:
+      - "5001:5001"
+    depends_on:
+      - database
+
+volumes:
+  db-data:
