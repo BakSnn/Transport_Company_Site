@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UsersList from "./components/UsersList";
-import AddUser from "./components/AddUser";
+import AddUser from "./components/AddUser/AddUser";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -36,7 +36,7 @@ const App: React.FC = () => {
   };
 
   const handleUserAdded = () => {
-    fetchUsers(); // Обновляем пользователей после добавления
+    fetchUsers();
   };
 
   // Загружаем пользователей при первом рендере

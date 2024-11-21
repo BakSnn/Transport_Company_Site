@@ -1,0 +1,20 @@
+.container {
+  display: flex; /* Используем Flexbox */
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; /* Центрирование по вертикали */
+  height: 100vh; /* Высота контейнера равна высоте экрана */
+  flex-direction: column;
+}
+
+.form {
+  width: 200px; /* Ширина формы */
+  background-color: #3a3a3a; /* Цвет фона формы (опционально) */
+  padding: 45px; /* Внутренние отступы */
+  border-radius: 8px; /* Закругленные углы */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень (опционально) */
+  text-align: center;
+}
+
+.labelInput{
+    margin-bottom: 10px;
+}
