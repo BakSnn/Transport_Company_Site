@@ -20,9 +20,6 @@ RUN npm install
 # Скопируйте всю папку server в контейнер
 COPY server ./server
 
-# Установите nodemon глобально (если требуется)
-RUN npm install -g nodemon
-
 # Откройте порт, который используется приложением
 EXPOSE 5001
 
