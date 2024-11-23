@@ -27,4 +27,4 @@ RUN npm install -g nodemon
 EXPOSE 5001
 
 # Команда для запуска приложения через nodemon
-CMD ["npx", "nodemon", "ts-node", "server/script.ts"]
+CMD ["npx", "ts-node", "server/script.ts"]
