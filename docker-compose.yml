@@ -5,22 +5,27 @@ services:
     image: postgres:14
     environment:
       POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: admin
+      POSTGRES_PASSWORD: adminslox223!
       POSTGRES_DB: tk_db
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    restart: always
 
   app:
     build:
       context: .
     environment:
-      DATABASE_URL: "postgresql://myuser:admin@database:5432/Transport_Company"
+      DATABASE_URL: "postgresql://myuser:adminslox223@database:5432/Transport_Company"
     ports:
       - "5001:5001"
     depends_on:
       - database
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
 
 volumes:
   db-data:
