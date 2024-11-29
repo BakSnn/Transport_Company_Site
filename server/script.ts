@@ -13,10 +13,12 @@ app.get("/api/password", async (req: Request, res: Response) => {
   try {
     const login = process.env.LOGIN;
     const password = process.env.PASSWORD;
-    res.json({
-      login: process.env.LOGIN,
-      password: process.env.PASSWORD,
-    });
+    const usersData = {
+      login: login,
+      password: password,
+    };
+
+    res.json(usersData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -104,5 +106,5 @@ app.delete("/api/users/:id", async (req: Request, res: Response) => {
 
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Server is running on ${port}`);
+  console.log(`Server is running on http://150.241.65.37:${port}`);
 });
