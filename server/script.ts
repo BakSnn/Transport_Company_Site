@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-
+import dotenv from "dotenv";
+dotenv.config(); // Этот метод загружает переменные из файла .env
 const app = express();
 const prisma = new PrismaClient();
 const port = process.env.PORT || 5001;
