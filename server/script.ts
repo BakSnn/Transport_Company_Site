@@ -13,7 +13,6 @@ app.get("/api/password", async (req: Request, res: Response) => {
   try {
     const login = process.env.LOGIN;
     const password = process.env.PASSWORD;
-    console.log(login);
     res.json({
       login: process.env.LOGIN,
       password: process.env.PASSWORD,
