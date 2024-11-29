@@ -1,8 +1,7 @@
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config(); // Этот метод загружает переменные из файла .env
+
 const app = express();
 const prisma = new PrismaClient();
 const port = process.env.PORT || 5001;
@@ -10,28 +9,12 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
-const login = "sdfsdf"
-const password = "sdfsdf"
-const usersData = {
-  login: login,
-  password: password,
-};
-
-console.log(usersData);
-app.get("/api/exit", async (req: Request, res: Response) => {
-  try {
-    res.json(usersData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 // Получение всех пользователей
 app.get("/api/users", async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany({
       include: {
-        posts: true, // Включение связанных постов
+        posts: true,
       },
     });
     res.json(users);
