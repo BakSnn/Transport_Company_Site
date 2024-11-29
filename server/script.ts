@@ -17,8 +17,7 @@ app.get("/api/password", async (req: Request, res: Response) => {
     const password = process.env.PASSWORD;
     console.log(login);
     res.json({
-      login: process.env.LOGIN,
-      password: process.env.PASSWORD,
+      login: "ffsdf",
     });
   } catch (error) {
     console.error(error);
