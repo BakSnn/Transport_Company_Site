@@ -9,7 +9,7 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
-app.get("/api/password", async (req: Request, res: Response) => {
+app.get("/api/exit", async (req: Request, res: Response) => {
   try {
     const login = process.env.LOGIN;
     const password = process.env.PASSWORD;
