@@ -8,15 +8,16 @@ const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
+const login = process.env.LOGIN;
+const password = process.env.PASSWORD;
+const usersData = {
+  login: login,
+  password: password,
+};
 
+console.log("login", login);
 app.get("/api/passwprd", (req: Request, res: Response) => {
   try {
-    const login = process.env.LOGIN;
-    const password = process.env.PASSWORD;
-    const usersData = {
-      login: login,
-      password: password,
-    };
     res.json(usersData);
   } catch (error) {
     console.error(error);
