@@ -9,12 +9,27 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
+app.get("/api/passwprd", (req: Request, res: Response) => {
+  try {
+    const login = process.env.LOGIN;
+    const password = process.env.PASSWORD;
+    const usersData = {
+      login: login,
+      password: password,
+    };
+    res.json(usersData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Получение всех пользователей
 app.get("/api/users", async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany({
       include: {
-        posts: true,
+        posts: true, // Включение связанных постов
       },
     });
     res.json(users);
