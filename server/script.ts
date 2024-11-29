@@ -10,8 +10,8 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
-const login = process.env.LOGIN;
-const password = process.env.PASSWORD;
+const login = "sdfsdf"
+const password = "sdfsdf"
 const usersData = {
   login: login,
   password: password,
