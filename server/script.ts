@@ -16,6 +16,8 @@ const usersData = {
   login: login,
   password: password,
 };
+
+console.log(usersData);
 app.get("/api/exit", async (req: Request, res: Response) => {
   try {
     res.json(usersData);
