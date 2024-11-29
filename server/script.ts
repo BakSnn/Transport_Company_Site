@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
@@ -10,14 +8,15 @@ const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
-const login = process.env.LOGIN;
-console.log(login);
+
 app.get("/api/password", async (req: Request, res: Response) => {
   try {
+    const login = process.env.LOGIN;
     const password = process.env.PASSWORD;
     console.log(login);
     res.json({
-      login: "ffsdf",
+      login: process.env.LOGIN,
+      password: process.env.PASSWORD,
     });
   } catch (error) {
     console.error(error);
@@ -106,5 +105,5 @@ app.delete("/api/users/:id", async (req: Request, res: Response) => {
 
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Server is running on http://150.241.65.37:${port}`);
+  console.log(`Server is running on ${port}`);
 });
