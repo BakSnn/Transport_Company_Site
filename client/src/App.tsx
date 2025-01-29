@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import UsersList from "./components/UsersList";
+import UsersList from "./components/UsersList/UsersList";
 import AddUser from "./components/AddUser/AddUser";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { StrictMode } from "react";
 
 const App: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,20 +47,23 @@ const App: React.FC = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Header></Header>}></Route>
-          <Route
-            path="/add"
-            element={<AddUser onUserAdded={handleUserAdded}></AddUser>}
-          ></Route>
+      <StrictMode>
+        <BrowserRouter>
+          <Header></Header>
+          <Routes>
+            <Route path="/" element={<Header></Header>}></Route>
+            <Route
+              path="/add"
+              element={<AddUser onUserAdded={handleUserAdded}></AddUser>}
+            ></Route>
 
-          <Route
-            path="/list"
-            element={<UsersList users={users}></UsersList>}
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+            <Route
+              path="/list"
+              element={<UsersList users={users}></UsersList>}
+            ></Route>
+          </Routes>
+        </BrowserRouter>
+      </StrictMode>
     </>
   );
 };

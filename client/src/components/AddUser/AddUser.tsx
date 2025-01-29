@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
 import styles from "./AddUser.module.scss";
 
 interface AddUserProps {
-  onUserAdded: () => void; // Функция для обновления списка пользователей
+  onUserAdded: () => void; 
 }
 
 const AddUser: React.FC<AddUserProps> = ({ onUserAdded }) => {
@@ -56,7 +55,6 @@ const AddUser: React.FC<AddUserProps> = ({ onUserAdded }) => {
 
   return (
     <>
-      <Header />
       <div className={styles.container}>
         <h2 className={styles.addUserLabel}>Добавить пользователя</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
