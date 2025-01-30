@@ -11,7 +11,7 @@ app.use(express.json()); // Для обработки JSON-данных
 
 
 // Получение всех пользователей
-app.get("/api/users", async (req: Request, res: Response) => {
+app.get("/api/product", async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany({
       include: {
@@ -26,7 +26,7 @@ app.get("/api/users", async (req: Request, res: Response) => {
 });
 
 // Добавление нового пользователя с постами
-app.post("/api/users", async (req: Request, res: Response) => {
+app.post("/api/product", async (req: Request, res: Response) => {
   const { email, name, posts } = req.body;
 
   try {
@@ -47,7 +47,7 @@ app.post("/api/users", async (req: Request, res: Response) => {
 });
 
 // Добавление нового поста для пользователя
-app.post("/api/users/:userId/posts", async (req: Request, res: Response) => {
+app.post("/api/product/:userId/title", async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { title, content, published } = req.body;
 
@@ -69,7 +69,7 @@ app.post("/api/users/:userId/posts", async (req: Request, res: Response) => {
 
 // удаление пользователя
 // Удаление пользователя и его постов
-app.delete("/api/users/:id", async (req: Request, res: Response) => {
+app.delete("/api/product/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
