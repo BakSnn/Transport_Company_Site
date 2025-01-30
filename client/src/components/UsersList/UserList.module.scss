@@ -1,6 +1,10 @@
-.container{
-    
+.container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  margin-top: 50px;
 }
-.header{
-    text-align: center;
+.header {
+  text-align: center;
 }

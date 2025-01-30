@@ -9,7 +9,6 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json()); // Для обработки JSON-данных
 
-
 // Получение всех пользователей
 app.get("/api/product", async (req: Request, res: Response) => {
   try {
@@ -67,18 +66,16 @@ app.post("/api/product/:userId/title", async (req: Request, res: Response) => {
   }
 });
 
-// удаление пользователя
-// Удаление пользователя и его постов
+// удаление пользователя и его постов
 app.delete("/api/product/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    // Удаляем все посты пользователя
     await prisma.post.deleteMany({
       where: { authorId: Number(id) },
     });
 
-    // Удаляем самого пользователя
+    // удаление пользователя
     const deletedUser = await prisma.user.delete({
       where: { id: Number(id) },
     });
@@ -90,7 +87,6 @@ app.delete("/api/product/:id", async (req: Request, res: Response) => {
   }
 });
 
-// Запуск сервера
 app.listen(port, () => {
   console.log(`Server is running on http://150.241.65.37:${port}`);
 });

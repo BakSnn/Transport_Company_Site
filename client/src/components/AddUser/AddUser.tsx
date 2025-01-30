@@ -40,10 +40,10 @@ const AddUser: React.FC<AddUserProps> = ({ onUserAdded }) => {
         throw new Error("Ошибка при добавлении пользователя");
       }
 
-      // Вызываем функцию обновления списка пользователей
+  
       onUserAdded();
 
-      // Очищаем поля формы
+    
       setName("");
       setEmail("");
       setPostTitle("");

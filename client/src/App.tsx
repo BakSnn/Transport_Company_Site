@@ -49,14 +49,12 @@ const App: React.FC = () => {
     <>
       <StrictMode>
         <BrowserRouter>
-          <Header></Header>
           <Routes>
             <Route path="/" element={<Header></Header>}></Route>
             <Route
               path="/add"
               element={<AddUser onUserAdded={handleUserAdded}></AddUser>}
             ></Route>
-
             <Route
               path="/list"
               element={<UsersList users={users}></UsersList>}
