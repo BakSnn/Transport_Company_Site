@@ -9,6 +9,8 @@ COPY server/package.json ./
 COPY server/package-lock.json ./   
 COPY server/.env .env
 
+RUN npm install prisma@latest --silent
+
 # Скопируйте папку prisma (где хранится schema.prisma)
 COPY server/prisma ./prisma
 
