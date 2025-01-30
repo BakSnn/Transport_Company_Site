@@ -1,31 +1,28 @@
-version: "3.8"
-
+version: "3.9"
 services:
   database:
     image: postgres:14
+    container_name: database
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: tk_db
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres 
+      POSTGRES_DB: Transport_Company
     volumes:
-      - db-data:/var/lib/postgresql/data
-    restart: always
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   app:
     build:
       context: .
-    environment:
-      DATABASE_URL: "postgresql://myuser:admin@database:5432/Transport_Company"
-    ports:
-      - "5001:5001"
+    container_name: app
     depends_on:
-      - database
-    restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "512M"
+      - database 
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@database:5432/Transport_Company"
+    ports:
+      - "5000:5000"
+    command: npm run start
 
 volumes:
-  db-data:
+  db_data:

@@ -93,5 +93,5 @@ app.delete("/api/phones/:id", async (req: Request, res: Response) => {
 
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://150.241.65.37:${port}`);
 });
