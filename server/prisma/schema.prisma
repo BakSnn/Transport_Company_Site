@@ -17,6 +17,7 @@ model phone {
   brand   String
   price   Float
   information String
+  photoPath String
   specifications String
   orders  order[]  @relation("PhoneOrders")
 }
