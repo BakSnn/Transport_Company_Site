@@ -9,49 +9,51 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 
-// Получение всех мобильных телефонов
+// Получение всех мобильных телефонов с заказами
 app.get("/api/phones", async (req: Request, res: Response) => {
   try {
     const phones = await prisma.phone.findMany({
       include: {
-        orders: true,
+        orders: true, // Включаем заказы, связанные с телефоном
       },
     });
-    res.json(phones);
+    res.json(phones); // Возвращаем список всех телефонов с заказами
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Добавление нового мобильного телефона с заказами
-app.post("/api/phones", async (req: Request, res: Response) => {
-  const { name, brand, price, orders } = req.body;
+// Получение информации о мобильном телефоне по ID
+app.get("/api/phones/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
 
   try {
-    const newPhone = await prisma.phone.create({
-      data: {
-        name,
-        brand,
-        price,
-        orders: {
-          create: orders, // Создание новых заказов для мобильного телефона
-        },
+    const phone = await prisma.phone.findUnique({
+      where: { id: Number(id) },
+      include: {
+        orders: true, // Включаем заказы для данного телефона
       },
     });
-    res.status(201).json(newPhone);
+
+    if (phone) {
+      res.json(phone); // Возвращаем информацию о конкретном телефоне
+    } else {
+      res.status(404).json({ error: "Phone not found" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Добавление нового заказа для мобильного телефона
+// Оформление нового заказа для мобильного телефона
 app.post("/api/phones/:phoneId/orders", async (req: Request, res: Response) => {
   const { phoneId } = req.params;
   const { customerName, quantity, shippingAddress } = req.body;
 
   try {
+    // Создаем новый заказ для телефона
     const newOrder = await prisma.order.create({
       data: {
         customerName,
@@ -60,27 +62,29 @@ app.post("/api/phones/:phoneId/orders", async (req: Request, res: Response) => {
         phoneId: Number(phoneId),
       },
     });
-    res.status(201).json(newOrder);
+    res.status(201).json(newOrder); // Возвращаем созданный заказ
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Удаление мобильного телефона
+// Удаление мобильного телефона и связанных с ним заказов
 app.delete("/api/phones/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
+    // Сначала удаляем все заказы, связанные с телефоном
     await prisma.order.deleteMany({
       where: { phoneId: Number(id) },
     });
 
+    // Затем удаляем сам телефон
     const deletedPhone = await prisma.phone.delete({
       where: { id: Number(id) },
     });
 
-    res.json(deletedPhone);
+    res.json(deletedPhone); 
   } catch (error) {
     console.error("Ошибка при удалении телефона:", error);
     res.status(500).json({ error: "Ошибка при удалении телефона" });
@@ -89,5 +93,5 @@ app.delete("/api/phones/:id", async (req: Request, res: Response) => {
 
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Server is running on http://150.241.65.37:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
