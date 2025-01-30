@@ -7,86 +7,87 @@ const prisma = new PrismaClient();
 const port = process.env.PORT || 5001;
 
 app.use(cors());
-app.use(express.json()); // Для обработки JSON-данных
+app.use(express.json());
 
-// Получение всех пользователей
-app.get("/api/product", async (req: Request, res: Response) => {
+// Получение всех мобильных телефонов
+app.get("/api/phones", async (req: Request, res: Response) => {
   try {
-    const users = await prisma.user.findMany({
+    const phones = await prisma.phone.findMany({
       include: {
-        posts: true, // Включение связанных постов
+        orders: true,
       },
     });
-    res.json(users);
+    res.json(phones);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Добавление нового пользователя с постами
-app.post("/api/product", async (req: Request, res: Response) => {
-  const { email, name, posts } = req.body;
+// Добавление нового мобильного телефона с заказами
+app.post("/api/phones", async (req: Request, res: Response) => {
+  const { name, brand, price, orders } = req.body;
 
   try {
-    const newUser = await prisma.user.create({
+    const newPhone = await prisma.phone.create({
       data: {
-        email,
         name,
-        posts: {
-          create: posts, // Создание новых постов для пользователя
+        brand,
+        price,
+        orders: {
+          create: orders, // Создание новых заказов для мобильного телефона
         },
       },
     });
-    res.status(201).json(newUser);
+    res.status(201).json(newPhone);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// Добавление нового поста для пользователя
-app.post("/api/product/:userId/title", async (req: Request, res: Response) => {
-  const { userId } = req.params;
-  const { title, content, published } = req.body;
+// Добавление нового заказа для мобильного телефона
+app.post("/api/phones/:phoneId/orders", async (req: Request, res: Response) => {
+  const { phoneId } = req.params;
+  const { customerName, quantity, shippingAddress } = req.body;
 
   try {
-    const newPost = await prisma.post.create({
+    const newOrder = await prisma.order.create({
       data: {
-        title,
-        content,
-        published,
-        authorId: Number(userId),
+        customerName,
+        quantity,
+        shippingAddress,
+        phoneId: Number(phoneId),
       },
     });
-    res.status(201).json(newPost);
+    res.status(201).json(newOrder);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// удаление пользователя и его постов
-app.delete("/api/product/:id", async (req: Request, res: Response) => {
+// Удаление мобильного телефона
+app.delete("/api/phones/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    await prisma.post.deleteMany({
-      where: { authorId: Number(id) },
+    await prisma.order.deleteMany({
+      where: { phoneId: Number(id) },
     });
 
-    // удаление пользователя
-    const deletedUser = await prisma.user.delete({
+    const deletedPhone = await prisma.phone.delete({
       where: { id: Number(id) },
     });
 
-    res.json(deletedUser);
+    res.json(deletedPhone);
   } catch (error) {
-    console.error("Ошибка при удалении пользователя:", error);
-    res.status(500).json({ error: "Ошибка при удалении пользователя" });
+    console.error("Ошибка при удалении телефона:", error);
+    res.status(500).json({ error: "Ошибка при удалении телефона" });
   }
 });
 
+// Запуск сервера
 app.listen(port, () => {
   console.log(`Server is running on http://150.241.65.37:${port}`);
 });
