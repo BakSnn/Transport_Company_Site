@@ -1,27 +1,18 @@
-# Укажите базовый образ
 FROM node:18
 
-# Установите рабочую директорию в контейнере
+# Установка рабочего каталога
 WORKDIR /app
 
-# Скопируйте только package.json и package-lock.json для установки зависимостей
-COPY server/package.json ./ 
-COPY server/package-lock.json ./   
-COPY server/.env .env
 
-# Скопируйте папку prisma (где хранится schema.prisma)
-COPY server/prisma ./prisma
-
-# Генерируйте Prisma Client
-RUN npx prisma generate
-# Установите зависимости
+COPY server/package.json server/package-lock.json ./
 RUN npm install
 
-# Скопируйте всю папку server в контейнер
-COPY server ./server
 
-# Откройте порт, который используется приложением
+COPY server .
+
+RUN npx prisma generate
+
+
 EXPOSE 5001
 
-# Команда для запуска приложения через nodemon
-CMD ["npx", "ts-node", "server/script.ts"]
+CMD ["npm", "run", "start"]
